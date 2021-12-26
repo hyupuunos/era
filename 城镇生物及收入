@@ -1,0 +1,12 @@
+The town creature list is at memory 0x6747B4. The formula to calculate the address for particular dwelling is ((int *)0x6747B4+7*2*TownType+7*IsUpgraded+DwellingLevel)
+
+
+   The town incomes are integers stored at these addresses:
+   0x5BFA1A+1 - basic (500)
+   0x5BFA2D+1 - town hall (1000)
+   0x5BFA48+1 - city hall (2000)
+   0x5BFA63+1 - capitol (4000)
+   0x5BFABD+1 - grail bonus (5000)
+
+   Also you can add bonus to gold income given by resource silo:
+   The table of integers is at 0x688F04. There are 7 ints per town, corresponing to different resources. The last one is the value for gold.
