@@ -1,0 +1,2 @@
+0x642EA0 - Table of creatures displayed in blacksmith screen. Gold cost is also taken from that creature.
+0x6AAA60 - Table of artifacts that are sold in blacksmith. Stangely this table has two ints per town (second is always -1 and changing it has no effect).
