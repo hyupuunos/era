@@ -1,0 +1,76 @@
+
+
+;0 Грязь Dirt
+;1 Песок Beach
+;2 Трава Grass
+;3 Снег Snow
+;4 Болото Swamp
+;5 Скалы Desert (former Rough)
+;6 Подземелье Wasteland (former Underground)
+;7 Лава Lava
+;8 Вода Water (will cause bugs when placed as native)
+;9 Пропасть Rock (will cause bugs when placed as native)
+
+;02;Knight
+;02;Sorc
+;03;Wizard
+;07;Heretic
+;00;Necromancer
+;06;Warlock
+;05;Barb
+;04;Witch
+;02;Gypsy
+
+;Units' native terrains
+006436A8 02;Knight
+006436AC 02;Sorc
+006436B0 03;Wizard
+006436B4 07;Heretic
+006436B8 00;Necromancer
+006436BC 01;Warlock
+006436C0 06;Barb
+006436C4 04;Witch
+006436C8 05;Gypsy
+
+;RMG native terrains
+006408D8 02;Knight
+006408DC 02;Sorc
+006408E0 03;Wizard
+006408E4 07;Heretic
+006408E8 00;Necromancer
+006408EC 01;Warlock
+006408F0 06;Barb
+006408F4 04;Witch
+006408F8 05;Gypsy
+
+;Sand corridors
+53300E 01; replacement of UG wasteland with sand
+
+;Redirect some spec checks for wasteland to sand
+532FB8 01
+532FE8 01
+
+;No wasteland battles at Z=1
+464044 EB
+
+;RMG preferences for neutral zones
+; Default
+;006824A0 00 00 00 00 01 00 00 00 04 00 00 00 FF FF FF FF;Dirt -> Castle, Rapart, Necropolis
+;006824B0 06 00 00 00 FF FF FF FF 00 00 00 00 00 00 00 00;Sand -> Stronghold
+;006824C0 00 00 00 00 01 00 00 00 FF FF FF FF 00 00 00 00;Grass -> Castle, Rampart
+;006824D0 02 00 00 00 FF FF FF FF 00 00 00 00 00 00 00 00;Snow -> Tower
+;006824E0 07 00 00 00 04 00 00 00 FF FF FF FF 00 00 00 00;Swamp -> Necr, Fort
+;006824F0 06 00 00 00 08 00 00 00 FF FF FF FF 00 00 00 00;Rough -> Citadel, Conflux (instead of Forge)
+;00682500 05 00 00 00 03 00 00 00 04 00 00 00 FF FF FF FF;UG -> Inferno, Necr, Dungeon
+;00682510 03 00 00 00 FF FF FF FF 00 00 00 00 00 00 00 00;Lava -> Inferno
+;00682520 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00;Water -> None
+
+006824A0 0400000000000000FFFFFFFFFFFFFFFF;Dirt -> Necr, Knight
+006824B0 030000000400000005000000FFFFFFFF;Beach(UG)-> Inferno, Necromancer, Warlock
+006824C0 0100000000000000FFFFFFFFFFFFFFFF;Grass -> Sorc, Knight
+006824D0 02000000FFFFFFFFFFFFFFFFFFFFFFFF;Snow -> Wizard
+006824E0 0500000007000000FFFFFFFFFFFFFFFF;Swamp -> Warlock, Witch
+006824F0 08000000FFFFFFFFFFFFFFFFFFFFFFFF;Desert -> Gypsy
+00682500 06000000FFFFFFFFFFFFFFFFFFFFFFFF;Waste -> Barb
+00682510 03000000FFFFFFFFFFFFFFFFFFFFFFFF;Lava -> Inferno
+00682520 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;Water -> None
