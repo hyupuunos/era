@@ -1,0 +1,38 @@
+; При повышении уровня: раскачка магического навыка до экспертного требует экспертной Мудрости
+; модификация воговской вставки:
+74DA24 55;                     PUSH EBP
+74DA25 8BEC;                   MOV EBP,ESP
+74DA27 53;                     PUSH EBX
+74DA28 8915C0497302;           MOV DWORD PTR DS:[27349C0],EDX
+74DA2E 890DECAAA400;           MOV DWORD PTR DS:[A4AAEC],ECX
+74DA34 8BD9;                   MOV EBX,ECX
+74DA36 837D0CFF;               CMP DWORD PTR SS:[EBP+C],-1
+74DA3A 7510;                   JNZ SHORT MoP.0074DA4C
+74DA3C 833D2C358A00FE;         CMP DWORD PTR DS:[8A352C],-2
+74DA43 7417;                   JE SHORT MoP.0074DA5C
+74DA45 A12C358A00;             MOV EAX,DWORD PTR DS:[8A352C]
+74DA4A EB56;                   JMP SHORT MoP.0074DAA2
+74DA4C 833D30358A00FE;         CMP DWORD PTR DS:[8A3530],-2
+74DA53 7407;                   JE SHORT MoP.0074DA5C
+74DA55 A130358A00;             MOV EAX,DWORD PTR DS:[8A3530]
+74DA5A EB46;                   JMP SHORT MoP.0074DAA2
+74DA5C FFB3D7000000;           PUSH DWORD PTR DS:[EBX+D7] - сохранить уровни школ героя в стеке
+74DA62 FF750C;                 PUSH DWORD PTR SS:[EBP+C]
+74DA65 FF7508;                 PUSH DWORD PTR SS:[EBP+8]
+74DA68 8B15C0497302;           MOV EDX,DWORD PTR DS:[27349C0]
+74DA6E 8BCB;                   MOV ECX,EBX
+74DA70 E8FBD4D8FF;             CALL MoP.004DAF70 - генерация навыка
+74DA75 83F80E;                 CMP EAX,0E - проверка на школы
+74DA78 7C22;                   JL SHORT MoP.0074DA9C
+74DA7A 83F811;                 CMP EAX,11 - проверка на школы
+74DA7D 7F1D;                   JG SHORT MoP.0074DA9C
+74DA7F 80BC18C900000002;       CMP BYTE PTR DS:[EAX+EBX+C9],2 - если навык продвинут и готовится прокачаться до эксперта
+74DA87 7513;                   JNZ SHORT MoP.0074DA9C
+74DA89 80BBD000000003;         CMP BYTE PTR DS:[EBX+D0],3 - а Мудрость ещё не экспертна
+74DA90 7D0A;                   JGE SHORT MoP.0074DA9C
+74DA92 C68418C900000003;       MOV BYTE PTR DS:[EAX+EBX+C9],3 - тогда якобы повышаем навык до эксперта и запускаем генерацию снова
+74DA9A EBC6;                   JMP SHORT MoP.0074DA62
+74DA9C 8F83D7000000;           POP DWORD PTR DS:[EBX+D7] - а после возвращаем скиллы обратно
+74DAA2 5B;                     POP EBX
+74DAA3 5D;                     POP EBP
+74DAA4 C20800;                 RETN 8
