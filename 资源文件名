@@ -1,0 +1,605 @@
+Описание ресурсов:
+
+H3sprite
+Окно героя
+UN32.def - маленькие иконки специализаций героев
+UN44.def - большие иконки специализаций героев
+
+Окно города
+TB%город%%здание%.DEF - здания в городе
+
+Объекты на карте (Click to Hide)
+AVC????? изображения городов на карте
+AVW%имямонстра%.DEF - изображения монстров на карте
+advdig, advinfo, advpuz, advturn, advview - Кнопки опций
+iam000 - iam011 - Кнопки менеджера
+Форт на холме - Avxhild0.def, Avxhilg0.def
+Картограф - Avxmaps0.def, Avxmapu0.def, Avxmapw0.def
+Телепорт (багнутый?) - Avxmn8b0.def
+Обелиски - Avxoblb.def, ..., Avxobly.def
+Палатка ключников и стражи ключников - Avxbor10.def, ..., Avxbor80.def, Avxkey00.def, ..., Avxkey70.def
+Квесты - Zseer001.def, Zseer002.def, Avxseeb0.def, Avxseer0.def, Avxseey0.def
+Нычка вампов - Avgvamp0.def
+Нычка всех элементалей - Avgelem0.def
+Дабл-нычка воздушных (широкая) - Avgair0.def
+Дабл-нычка землянок (широкая) - Avgerth0.def
+Дабл-нычка огненных (широкая) - Avgfire0.def
+Дабл-нычка водных (широкая) - Avgwatr0.def
+Святилище - Avxsanc0.def
+
+Войска Замка (Click to Hide)
+chalbd.def - Halabardnik | Halabardier / Halberdier
+CLCBOW.def - Łucznik | Strzelec / Archer | Light Crossboman
+CHCBOW.def - Kusznik / Marksman | Heavy Crossbowman
+CGRIFF.def - Gryf / Griffin
+cCavlr.def - Cavalier
+cChamp.def - Champion
+cAngel.def - Angel
+Войска Оплота (Click to Hide)
+cCentr.def - Centaur
+cBDwar.def - Krasnolud Wojownik / Battle Dwarf
+cGrElf.def - Grand Elf
+cAPegs.def - Silver Pegasus
+cTree.def - Drzewiec / Dendroid Soldier | Treefolk
+cBTree.def - Ent / Dendroid Guard | Briar Treefolk
+CUNICO.def - Jednorożec / Unicorn
+Монстры (Click to Hide)
+CAMAGE.def - Arcymag / Archmage
+
+CCERBU.def - Cerber / Cerberus
+CADEVL.def - Arcydiabeł / Arch Devil
+
+cbehol.def - Złe Oko | Obserwator / Beholder
+CCMCOR.def - Chimera | Skorpikora / Scorpicore
+CBDRGN.def - Czarny Smok / Black Dragon
+
+CBKNIG.def - Czarny Rycerz / Black Knight
+CBLORD.def - Upiorny Rycerz | Władca Mroku / Dread Knight | Black Lord
+
+CBWLFR.def - Wilczy Jeździec / Wolf Rider | Goblin Wolf Rider
+CABEHE.def - Starożytny Behemot / Ancient Behemoth
+
+cALiza.def - Reptilion / Lizard Warrior | Advanced Lizardman
+cBasil.def - Bazyliszek / Basilisk
+Ccgorg.def - Gorgona / Gorgon | Copper Gorgon
+Cbgog.def - Demigorgona | Potężna Gorgona / Mighty Gorgon | Bronze Gorgon
+cCHydr.def - Hydra Chaosu / Chaos Hydra
+
+CAELEM.def - Żywiołak Powietrza / Air Elemental
+
+Cboar.def - Knurzy Jeździec | Dzik / Boar
+Ccdrgn.def - Kryształowy Smok / Crystal Dragon
+CaDrgn.def - Błękitny Smok / Azure Dragon
+Ccrusd.def - Krzyżowiec / Crusader
+CcyclLor.def - Cyklop Krуlewski / Cyclops King | Cyclops Lord
+CCYCLR.def - Cyklop / Cyclops
+CDDRAG.def - Złoty Smok / Gold Dragon
+CDEVIL.def - Diabeł / Devil
+CDGOLE.def - Diamentowy Golem / Diamond Golem
+CDRFIR.def - Smocza Ważka | Smoczy Oślizg / Dragon Fly | Fire Dragon Fly
+CDRFLY.def - Ważka | Oślizg / Serpent Fly | Dragon Fly
+CDWARF.def - Krasnolud / Dwarf
+CECENT.def - Centaur Kapitan | Bojowy Centaur / Centaur Captain | Elite Centaur
+CEELEM.def - Żywiołak Ziemi / Earth Elemental
+cefree.def - Ifryt | Ifrit / Efreet
+cefres.def - Sułtański Ifryt | Sułtański Ifrit | Miryd / Efreet Sultan
+CELF.def - Leśny Elf / Wood Elf
+Ceveye.def - Beholder / Evil Eye
+CGDRAG.def - Zielony Smok / Green Dragon
+CGARGO.def - Kamienny Gargulec / Stone Gargoyle
+CGENIE.def - Dżinn | Geniusz / Genie
+CGREMA.def - Gremlin | Chochlik / Apprentice Gremlin
+CGREMM.def - Wyższy Gremlin | Gremlin / Master Gremlin
+CGTITA.def - Tytan / Titan | Greater Titan
+CGOBLI.def - Goblin
+CGOG.def - Gog
+CFAMIL.def - Chowaniec / Familiar
+CFELEM.def - Żywiołak ognia / Fire Elemental
+Cfbird.DEF - Ognisty Ptak / Firebird
+Cfdrgn.def - Czarodziejski Smok / Faerie Dragon
+Cench.def - Czarodziej / Enchanter
+CGGOLE.def - Złoty Golem / Gold Golem
+CGNOLL.def - Gnoll | Bobołak
+CGNOLM.def - Gnoll Maruder | Zwierzołak / Gnoll Marauder
+CGBASI.def - Bazyliszek Krуlewski | Wyższy Bazyliszek / Greater Basilisk
+CHalf.def - Niziołek / Halfling
+CHARPH.def - Harpia Wiedźma / Harpy Hag
+CHARPY.def - Harpia / Harpy
+CHDRGN.def - Duchowy Smok | Upiorny Smok / Ghost Dragon
+CHGOBL.def - Hobgoblin
+CHHOUN.def - Piekielny Ogar / Hell Hound
+CHYDRA.def - Hydra
+Cicee.def - Żywiołak Lodu / Ice Elemental
+CIGOLE.def - Żelazny Golem / Iron Golem
+CIMP.def - Chochlik | Diablik / Imp
+Citrog.def - Piekielny Troglodyta / Infernal Troglodyte
+CLICH.def - Lisz | Licz / Lich
+CLTITA.def - Gigant / Giant | Lesser Titan
+CMAGE.def - Mag / Mage
+Cmagel.def - Żywiołak Magii / Magic Elemental
+CMAGOG.def - Magog
+CMCORE.def - Mantikora | Mantykora / Manticore
+Cmeduq.def - Meduza Krуlewska / Medusa Queen
+Cmedus.def - Meduza / Medusa
+Cminok.def - Minotaur Krуlewski / Minotaur King
+CMINOT.def - Minotaur
+Cmonkk.def - Mnich / Monk
+Cmummy.def - Mumia / Mummy
+CNAGA.def - Naga | Przeraza / Naga Sentinel
+CNAGAG.def - Krуlewska Naga | Skorpena / Naga Queen | Naga Guardian
+CNDRGN.def - Kościany Smok / Bone Dragon
+Cnomad.def - Nomad
+CNOSFE.def - Wampirzy Lord | Alp / Vampire Lord | Nosferatu
+Cnrg.def - Żywiołak Energii / Energy Elemental
+COGARG.def - Obsydianowy Gargulec | Marmurowy Gargulec / Obsidian Gargoyle
+COGMAG.def - Ogr Szaman | Szaman / Ogre Mage
+COGRE.def - Ogr / Ogre
+COHDEM.def - Demon / Lesser Demon | Single-Horned Demon
+CORC.def - Ork / Orc
+CORCCH.def - Uruk / Orc Chiefan
+Cpeas.def - Chłop / Peasant
+CPEGAS.def - Pegaz / Pegasus
+CPFIEN.def - Czart / Pit Fiend
+CPFOE.def - Czarci Lord / Pit Lord | Pit Foe
+CPHX.def - Feniks / Phoenix
+Cpixie.def - Nimfa | Driada / Pixie
+CPKMAN.def - Pikinier / Pikeman
+CPLICH.def - Arcylisz | Arcylicz | Potężny Lisz / Power Lich
+CPLIZA.def - Jaszczuroczłek | Jaszczurolud / Lizardman | Primitive Lizardman
+Cpsyel.def - Żywiołak Psychiki | Żywiołak Umysłu | Żywiołak Myśli / Psychic Elemental | Psi Elemental
+CRANGL.def - Archanioł / Archangel
+CRDRGN.def - Czerwony Smok / Red Dragon
+Crgrif.def - Gryf Krуlewski / Royal Griffin
+CROC.def - Rok / Roc
+Crogue.def - Rozbуjnik / Rogue
+CRsDgn.def - Rdzawy Smok / Rust Dragon
+CSGOLE.def - Kamienny Golem / Stone Golem
+Csharp.def - Strzelec / Sharpshooter
+CSKELE.def - Szkielet / Skeleton
+CSprite.def - Rusałka | Sylfida / Sprite
+Cstone.def - Żywiołak Magmy / Magma Elemental | Stone Elemental
+Cstorm.def - Żywiołak Burzy / Storm Elemental
+CSULTA.def - Potężny Dżinn | Dżin / Master Genie | Caliph
+Csword.def - Zbrojny | Miecznik / Swordsman
+CTBIRD.def - Ptak Gromu / Thunderbird
+CTHDEM.def - Rogaty Demon / Horned Demon | Greater Demon | Dual-Horned Demon
+Ctrogl.def - Troglodyta / Troglodyte
+Ctroll.def - Troll
+CUWLFR.def - Wilczy Rycerz / Wolf Raider | Hobgoblin Wolf Rider
+CVAMP.def - Wampir / Vampire
+CWELEM.def - Żywiołak Wody / Water Elemental
+CWIGHT.def - Zjawa / Wight
+CWRAIT.def - Upiуr | Zmora / Wraith
+CWSKEL.def - Kościej / Skeleton Warrior
+CWUNIC.def - Jednorożec Bitewny / War Unicorn
+CWYVER.def - Wiwerna / Wyvern
+CWYVMN.def - Krуlewska Wiwerna / Wyvern Monarch
+CYBEHE.def - Behemot / Behemoth | Young Behemoth
+Czealt.def - Kapłan / Zealot
+CZOMBI.def - Ożywieniec / Walking Dead | Zombie
+CZOMLO.def - Zombi / Zombie | Zombie Lord
+
+ZM150Z.DEF - Serafin | Najwyższy Archanioł / Supreme Archangel
+ZM151Z.DEF - Diamentowy Smok / Diamond Dragon
+ZM152Z.DEF - Gromowładny | Władca Piorunуw / Lord of Thunder
+ZM153Z.DEF - Piekielny Baron | Antychryst / Hell Baron | Antichrist
+ZM154Z.DEF - Krwawy Smok / Blood Dragon
+ZM155Z.DEF - Smok Cienia / Darkness Dragon
+ZM156Z.DEF - Widmowy Behemot / Ghost Behemoth
+ZM157Z.DEF - Piekielna Hydra / Hell Hydra
+ZM158Z.DEF - Święty Feniks / Sacred Phoenix
+ZM159G.DEF - Duch / Ghost
+ZM160G.DEF - Emisariusz Wojny / Emissary of War
+ZM161G.DEF - Emisariusz Pokoju / Emissary of Peace
+ZM162G.DEF - Emisariusz Mocy / Emissary of Mana
+ZM163G.DEF - Emisariusz Wiedzy / Emissary of Lore
+ZM164GD.DEF - Posłaniec Ognia | Wysłannik Ognia / Fire Messenger
+ZM165GD.DEF - Metamorf | Posłaniec Ziemi | Wysłannik Ziemi / Earth Messenger
+ZM166GD.DEF - Posłaniec Wody | Wysłannik Wody / Water Messenger
+ZM167GD.DEF - Posłaniec Powietrza | Wysłannik Powietrza / Air Messenger
+ZM168DG.DEF - Gorynicz | Gorynycz / Gorynych
+ZM169ZL.DEF - Kapłan Wojny / War Zealot
+ZM170SW.DEF - Arktyczny Strzelec / Arctic Sharpshooter
+ZM171SR.DEF - Wulkaniczy Strzelec / Lava Sharpshooter
+ZM172N.DEF - Koszmar | Zmora | Nocna Mara / Nightmare
+ZM173M.DEF - Gremlinołaj / Santa Gremlin
+ZM174NPC.DEF - Paladyn | Palladyn / Paladin
+ZM175NPC.DEF - Pustelnik / Hierophant
+ZM176NPC.DEF - Westalka | Strażniczka Świątyni / Temple Guardian
+ZM177NPC.DEF - Sukkub / Succubus
+ZM178NPC.DEF - Pożeracz Dusz / Soul Eater
+ZM179NPC.DEF - Oprawca | Brutus / Brute
+ZM180NPC.DEF - Przywуdca Ogrуw / Ogre Leader
+ZM181NPC.DEF - Szaman / Shaman
+ZM182NPC.DEF - Żywiołak Kosmosu | Duch Astralny / Astral Spirit
+ZM192Z.DEF - Sylvan Centaur
+ZM193Z.DEF - Czarodziejka / Sorceress
+ZM194Z.DEF - Wilkołak / Werewolf
+ZM195Z.DEF - Hell Steed
+ZM196Z.DEF - Dracolich
+
+Машины:
+smbal.def - Balista / Ballista
+SMCart.def - Wуz z Amunicją / Ammo Cart
+SMCata.def - Katapulta / Catapult
+SMtent.def - Namiot Medyka / First Aid Tent | First-Aid Tent
+
+Выстрелы:
+CPRGOGX.def - Ognista Kule Magoga i Strzała Wulkanicznego Strzelca
+cprgre.def - Kula Gremlina/Wyższego Gremlina
+CPRGTIX.def - Piorun Tytana i Gromowładnego
+CPRZEAX.def - Magia Mnicha i Kapłana
+PCYCLBX.def - Skała Cyklopa i Cyklopa Krуlewskiego
+PELFX.def - Strzała Elfa i Srebrnego Elfa/Wyższego Elfa
+Phalf.def - Kamień Niziołka
+Picee.def - Sopel Lodu Żywiołaka Lodu
+PLCBOWX.def - Bełt Strzelca/Łucznika i Kusznika
+PLICH.def - Magia Lisza/Licza i Arcylisza/Arcylicza
+PMAGEX.def - Magia Maga i Strzała Arktycznego Strzelca
+PMEDUSX.def - Strzała Meduzy i Meduzy Krуlewskiej
+porchx.def - Topуr Orka i Uruka
+PPLIZAX.def - Strzała Jaszczuroluda i Reptiliona
+
+SMBALX.def - Balisty
+SMCatx.def - Katapulty
+Главное меню (Click to Hide)
+инфа от geNNadiy: для \\\"скинизации\\\" нужно редактировать:
+
+   ZmenuCR.def - кнопка "Создатели"
+   ZmenuHS.def - кнопка "Результаты"
+   ZmenuLG.def - кнопка "Загрузить Игру"
+   ZmenuNG.def - кнопка "Новая Игра"
+   ZmenuQT.def - кнопка "Выход (из игры в Windows)"
+   ZSSarm.def - кнопка "Клинок Армагеддона"
+   ZSScus.def - кнопка "Другая Кампания"
+   ZSSexit.def - кнопка "Назад (выход из меню выбора кампаний)"
+   ZSSroe.def - кнопка "Возрождение Эрафии"
+   ZSSsod.def - кнопка "Дыхание Смерти"
+   ZTback.def - кнопка "Назад (при выборе типа игры)"
+   ZTcampn.def - кнопка "Кампании"
+   ZTmulti.def - кнопка "Мультиплейер"
+   ZTsingl.def - кнопка "Одиночная Игра"
+   ZTtutor.def - кнопка "Обучение"
+ещё возможно при изменении загрузочного экрана захочется изменить и \\\"синие квадратики\\\" что снизу ползут во время самой загрузки - вот и они - LOADPROG.DEF (H3sprite.lod)
+Содержимое H3bitmap.lod (Click to Hide)
+AISHIELD.PCX - щит вместо миникарты во время хода противника/
+muMAP.bmp (мини фон в окне мультиплеерной игры)
+ZloadGAM.bmp (надпись \\\"загрузка игры\\\")
+ZmainMEN.bmp (боковая панелька без кнопок для вида \\\"об авторах\\\")
+ZnewGAM.bmp (надпись \\\"новая игра\\\")
+Zpic1000.bmp (рисунок в окне выбора параметров игры)
+Zpic1001.bmp (альтернативный рисунок в окне выбора параметров игры)
+Zpic1005.bmp (основной фон)
+Zpic106.bmp (фон \\\"загрузки\\\")
+ACredit.smk анимация буквы T из Надписи In The wake of Gods при старте игры
+
+Описание текстовиков (Click to Hide)
+ARRAYTXT.TXT - Всякое. В частности, здесь можно поправить показ кол-ва монстров (Чтобы вместо \\\"Мало\\\" было \\\"1-4\\\")
+
+ARTEVENT.TXT - Сообщения при поднятии артефакта.
+ARTRAITS.TXT - Свойства артефактов.
+BLDGNEUT.TXT - Описания некоторых зданий (гильдия магов, магистрат и т.д..).
+BLDGSPEC.TXT - Описания других зданий.
+BUILDING.TXT - Стоимость постройки зданий.
+BALLIST.TXT - шансы попадания баллистой при осаде, нанесенный урон и кол-во раз стрельбы.
+CRBANKS.TXT - банки существ
+CRANIM.TXT - Анимация существ.
+CREDITS.TXT - Авторы.
+CRGEN1.TXT - Названия жилищ (на карте).
+CRGEN4.TXT - Дополнительные названия жилищ.
+CRTRAITS.TXT - свойства монстров для СОД. Текстовик загружается раньше, чем ZCRTRAIT.TXT. Если ВОГ НЕ в рабочем состоянии (например, отсутствует zvslib1.dll) - часть exe от СОДа грузит именно CRTRAITS.TXT.
+CRTRAIT0.TXT - чисто для редактора карт.
+DWELLING.TXT - Названия жилищ (Во всех городах).
+GENRLTXT.TXT - Прочие текстовые сообщения.
+HCTRAITS.TXT - Наименования классов героев.
+HEROBIOS.TXT - Биографии героев.
+HEROSPEC.TXT - Специализации героев (только названия и описания).
+HOTRAITS.TXT - Стартовые армии героев.
+MINEEVNT.TXT - Сообщения при захвате шахт.
+MINENAME.TXT - Названия шахт.
+RANDSIGN.TXT - Надписи на знаках.
+RANDTVRN.TXT - Слухи в тавернах.
+RESTYPES.TXT - Названия типов ресурсов.
+SPTRAITS.TXT - Описание заклинаний.
+SSTRAITS.TXT - Описание навыков.
+TOWNNAME.TXT - Названия городов.
+   TOWNTYPE.TXT - Типы городов.
+
+   zaobjts.txt - характеристики объектов на карте. Влияет, в частности, на генерацию объектов на рандоме. По ссылке - ТЕшный, часть объектов отключена, часть - появляется чаще, например, крипты появляются на варварских пустошах.
+   ZCREXP.TXT - Опыт отрядов.
+   ZCRGN1.TXT - Названия ВоГовских жилищ на карте.
+   ZCRTRAIT.TXT - Характеристики монстров (Включая ВоГовские).
+   ZMESS00.TXT - Все новые ВоГовские сообщения.
+   ZNPC00.TXT - Описания командиров.
+   ZNPC01.TXT - Имена и биографии командиров.
+   ZREDITS.TXT - Авторы (ВоГ).
+Ресурсы, которые не требуют запаковки в лод, и которые нормально работают из папки DATA
+Портреты. Формат PCX
+Тема "Портреты героев"
+Моя подборка, почти без флуда Sm
+Звуки боя. Звук в формате .wav, требует смены расширения на .82m.
+Звуки на карте. (LOOP[...].wav)
+Городские здания. Формат .pcx.
+Поля боя. Формат .pcx.
+Тема "Battlefields"
+
+Список названий портретов героев.
+Spoiler (Click to Hide)
+
+Название каждого большого портрета начинается с HPL
+Название каждого малого портрета начинается с HPS
+Список героев:
+Рыцари
+000 Оррин
+001 Валеска
+002 Эдрик
+003 Сильвия
+004 Лорд Хаарт
+005 Сорша
+006 Кристиан
+007 Турис
+Усл. обозначение класса - KN
+Священники
+008 Рион
+009 Адель
+010 Катберт
+011 Аделаида
+012 Инхам
+013 Саня
+014 Лоинс
+015 Каитлин
+Усл. обозначение класса - CL
+Рэйнджеры
+016 Мепхала
+017 Уфретин
+018 Енова
+019 Роланд
+020 Торгрим
+021 Ивор
+022 Кланси
+023 Киррь
+Усл. обозначение класса - RN
+Друиды
+024 Корониус
+025 Уланд
+026 Эллезар
+027 Джем
+028 Мальком
+029 Мелодиа
+030 Алагар
+031 Аерис
+Усл. обозначение класса - DR
+Алхимики
+032 Пигуедрам
+033 Тан
+034 Жосефина
+035 Нелла
+036 Торосар
+037 Фафнер
+038 Ризза
+039 Иона
+Усл. обозначение класса - AL
+Маги
+040 Астрал
+041 Халон
+042 Серена
+043 Даремиф
+044 Теодор
+045 Солмир
+046 Кира
+047 Аин
+Усл. обозначение класса - WZ
+Демоны
+048 Фиона
+049 Рашка
+050 Мариус
+051 Игнат
+052 Октавия
+053 Калх
+054 Пир
+055 Нимус
+Усл. обозначение класса - HR
+Еретики
+056 Айден
+057 Ксирон
+058 Аксис
+059 Олема
+060 Калид
+061 Аш
+062 Зидар
+063 Ксарфакс
+Усл. обозначение класса - DM
+Рыцари смерти
+064 Стракер
+065 Вокиал
+066 Моандор
+067 Чарна
+068 Тамика
+069 Исра
+070 Клавиус
+071 Галтран
+Усл. обозначение класса - DK
+Некроманты
+072 Септиенна
+073 Аислин
+074 Сандро
+075 Нимбус
+076 Тант
+077 Кси
+078 Видомина
+079 Нагаш
+Усл. обозначение класса - NC
+Лорды
+080 Лорелей
+081 Арлаш
+082 Дас
+083 Аджит
+084 Дамакон
+085 Гуннар
+086 Синка
+087 Шакти
+Усл. обозначение класса - OV
+Чернокнижники
+088 Аламар
+089 Жаегар
+090 Малекит
+091 Жеддит
+092 Геон
+093 Деемер
+094 Сепхинороф
+095 Дарксторн
+Усл. обозначение класса - WL
+Варвары
+096 Йог
+097 Гурниссон
+098 Жабаркас
+099 Шива
+100 Гретчин
+101 Креллион
+102 Крэг Хэк
+103 Тираксор
+Усл. обозначение класса - BR
+Боевые маги
+104 Гирд
+105 Вей
+106 Десса
+107 Терек
+108 Зубин
+109 Гундула
+110 Орис
+111 Сауруг
+Усл. обозначение класса - BM
+Хозяева Зверей
+112 Брон
+113 Дракон
+114 Вистан
+115 Тазар
+116 Алкин
+117 Корбак
+118 Гервульф
+119 Брохильд
+Усл. обозначение класса - BS
+Ведьмы
+120 Мирланда
+121 Розик
+122 Вой
+123 Вердиш
+124 Мерист
+125 Стиг
+126 Андра
+127 Тива
+Усл. обозначение класса - WH
+C элементалами отдельный разговор, они не принадлежат к данному списку.
+Путешественники
+000 Пасис
+001 Тунар
+002 Игнисса
+003 Лакус
+004 Монер
+005 Эрдамон
+006 Фьюр
+007 Кальт
+Усл. обозначение класса - PL
+Элементалисты
+000 Луна
+001 Брисса
+002 Циэль
+003 Лабета
+004 Интеус
+005 Аэнаин
+006 Джелар
+007 Гриндан
+Усл. обозначение класса - EL
+Дополнительные герои
+130KN Сэр Мюллих
+000SH Адриэн
+128QC Катерина
+003SH Дракон
+004SH Джелу
+129MK Килгор
+006SH Лорд Хаарт
+007SH Мутаре
+009SH Роланд
+008SH Мутаре Дрэйк
+132WL Борагус
+131DM Ксерон
+Примеры:
+HPL000KN - большой портрет для Оррина
+HPS120WH - малый портрет для Миранды
+
+Папка MP3:
+Spoiler (Click to Hide)
+Файлы по порядку при упорядочивании по имени:
+AITheme0.mp3 - AITheme2.mp3 - Во время хода компьютера
+BladeABCampaign.mp3 - CampainMusic11.mp3 - Музыка из компаний
+COMBAT01.MP3 - COMBAT04.MP3 - Во время боя
+CstleTown.mp3 - Замок Замок (Кастл)
+Defend Castle.mp3 - Победа при обороне замка
+DIRT.MP3 - Местность Грязь
+DUNGEON.MP3 - Замок Подземелье (Данжеон)
+ElemTown.mp3 - Замок Сопряжение (Конфлюкс)
+EvilTheme.mp3 - Музыка для кампаний
+FortressTown.mp3 - Замок Болото (Фортресс)
+GoodTheme.mp3 - Музыка для кампаний
+GRASS.MP3 - Местность Трава
+InfernoTown.mp3 - Замок Инферно
+LAVA.MP3 - Местность Лава
+LoopLepr.mp3 - Сад леприкона
+Lose Campain.mp3 - Проигрыш компании
+LoseCastle.mp3 - Проигрыш при обороне замка
+LoseCombat.mp3 - Проигрыш битвы
+MAINMENU.MP3 - Главное меню оригинала
+MainMenuWoG.mp3 - Главное меню ВоГ
+necroTown.mp3 - Замок Некрополис
+NeutralTheme.mp3 - Музыка для кампаний
+RAMPART.MP3 - Замок Оплот (Рампарт)
+Retreat Battle.mp3 - Побег из битвы
+ROUGH.MP3 - Местность Камни
+SAND.MP3 - Местность Песок
+SecretTheme.mp3 - Музыка для кампаний
+SNOW.MP3 - Местность Снег
+StrongHold.mp3 - Замок крепость (Стронгхолд)
+Surrender Battle.mp3 - Сдача битвы
+SWAMP.MP3 - Местность Болото
+TowerTown.mp3 - Замок Башня (Тауэр)
+UltimateLose.mp3 - Проигрыш в сценарии
+Underground.mp3 - Местность подземелье
+WATER.MP3 - Местность Вода
+Win Battle.mp3 - Победа в битве
+Win Scenario.mp3 - Победа в сценарии
+Видео:
+Spoiler (Click to Hide)
+.smk:
+3DOLOGO - Логотип 3до при запуске игры
+BUKALOGO - Логотип Буки тада же
+Credits - Анимация фона меню
+PGTRNLFT - Перелистывание спелбука влево
+PGTRNRGH - То же вправо
+
+.bik:
+BIRTH - Анимация картинки кампании
+CEVIL1 - Анимация картинки кампании
+CEVIL2 - Анимация картинки кампании
+CGOOD1 - Анимация картинки кампании
+CGOOD2 - Анимация картинки кампании
+CGOOD3 - Анимация картинки кампании
+CNEUTRAL - Анимация картинки кампании
+CREDITS - Анимация фона меню
+CSECRET -Анимация картинки кампании
+DEFENDALL - Оборона замка начало
+DEFENDLOOP - Оборона замка цикл
+ELIXIR - Анимация картинки кампании
+HACK - Анимация картинки кампании
+LBLOOP - Поражение цикл
+LBSTART - Поражение начало
+LOSECSLP - Проигрыш обороны замка цикл
+LOSECSTL - Проигрыш обороны замка начало
+NEW - Анимация картинки кампании
+RISE - Анимация картинки кампании
+RTLOOP - Побег цикл
+RTSTART - Побег начало
+SPECTRE - Анимация картинки кампании
+SURRENDER - Сдаться сам себе цикл
+TAVERN - Видео в таверне
+UNHOLY - Анимация картинки кампании
+WIN3 - Победа сам себе цикл
