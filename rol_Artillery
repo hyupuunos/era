@@ -1,0 +1,231 @@
+ZVSE2
+
+** trigger for artillery
+
+
+**弩车基本属性初始化
+!?FU(OnAfterErmInstructions);
+!!MA:X(MON_BALLISTA)/197701; [双格1/射击4/攻城武器64/免疫精神魔法1024/无法反击65536/无士气131072]
+!!MA:A(MON_BALLISTA)/5;
+!!MA:D(MON_BALLISTA)/4;
+!!MA:M(MON_BALLISTA)/8;
+!!MA:E(MON_BALLISTA)/16;
+!!MA:P(MON_BALLISTA)/70;
+!!MA:S(MON_BALLISTA)/0;
+!!MA:N(MON_BALLISTA)/4;
+
+!!UN:C4470193/1/37;                     [取消弩车双倍伤害（将ID绑在122号生物上）]
+!!UN:C4456349/4/9999;                   [取消弩车双击]
+
+**如果有炮术技能，战场上跳过放置投石车。
+!?FU(WOG_CreateERMHook);
+!!SN:Ex1/1/4600657/(arc_54_OnPlaceCatapult);
+
+!?FU(arc_54_OnPlaceCatapult);
+!!HEi^battle_hero_0^:S(SKILL_ARTILLERY)/?(artilleryLv:y);
+!!if&(artilleryLv)>(SKILL_NOT_LEARNED);
+  !!SN:X?t/0;
+  !!UN:Cx1/(STRUCT_HOOK_CONTEXT_RET)/4/4600715;
+!!en;
+
+
+**有炮术技能，开战前删除急救帐篷、补给车，之后恢复。（不会出现在战场上）。
+!?FU(OnBeforeBattle);
+!!re (side:y)/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
+
+  !!HEi^battle_hero_%(side)^:S(SKILL_ARTILLERY)/?(artilleryLv:y);
+  !!if&(artilleryLv)>(SKILL_NOT_LEARNED);
+    !!HEi^battle_hero_%(side)^:A2/(ART_AMMO_CART)/?(numAllAmmo:y)/?(numEquAmmo:y);
+    !!HEi^battle_hero_%(side)^:A2/(ART_FIRST_AID_TENT)/?(numAllAidTent:y)/?(numEquAidTent:y);
+  !!en;
+
+  !!if&(artilleryLv)>(SKILL_NOT_LEARNED)/(numEquAmmo)>=1;
+    !!HEi^battle_hero_%(side)^:A3/(ART_AMMO_CART)/1/1;
+    !!VRi^rol_deleteAmmo_hero_%(side)^:Si^battle_hero_%(side)^;
+  !!en;
+
+  !!if&(artilleryLv)>(SKILL_NOT_LEARNED)/(numEquAidTent)>=1;
+    !!HEi^battle_hero_%(side)^:A3/(ART_FIRST_AID_TENT)/1/1;
+    !!VRi^rol_deleteAidTent_hero_%(side)^:Si^battle_hero_%(side)^;
+  !!en;
+
+!!en;
+
+**恢复帐篷及补给车
+!?FU(OnSetupBattlefield);
+!!re (side:y)/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
+  !!if&i^rol_deleteCatapult_hero_%(side)^>(NO_HERO);
+  !!HEi^rol_deleteCatapult_hero_%(side)^:A1/(ART_CATAPULT)/(ART_SLOT_CATAPULT);
+  !!en;
+
+  !!if&i^rol_deleteAmmo_hero_%(side)^>(NO_HERO);
+  !!HEi^rol_deleteAmmo_hero_%(side)^:A1/(ART_AMMO_CART)/(ART_SLOT_AMMO_CART);
+  !!en;
+
+  !!if&i^rol_deleteAidTent_hero_%(side)^>(NO_HERO);
+  !!HEi^rol_deleteAidTent_hero_%(side)^:A1/(ART_FIRST_AID_TENT)/(ART_SLOT_FIRST_AID_TENT);
+  !!en;
+
+!!en;
+
+
+**初级炮术增加1弩车，中级增加2，高级增加3.
+!?FU(OnSetupBattlefield);
+
+!!re (side:y)/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
+  !!HEi^battle_hero_%(side)^:S(SKILL_ARTILLERY)/?(artilleryLv:y);
+  !!HEi^battle_hero_%(side)^:A2/(ART_BALLISTA)/?(numAllBallista:y)/?(numEquBallista:y);
+  !!VR(distance:y):S(side)*16;
+  !!VR(frtBallistaPOS:y):S51+(distance);
+  !!VR(sndBallistaPOS:y):S119+(distance);
+  !!VR(trdBallistaPOS:y):S17+(distance);
+  !!VR(fthBallistaPOS:y):S153+(distance);
+
+  !!BU:E67/?(stackId:y);
+  !!if&(numEquBallista)>=1/(artilleryLv)>=(SKILL_BASIC)/(stackId)<=(NO_MON);[守城方初始弩车也出场]
+    !!BU:S(MON_BALLISTA)/1/(frtBallistaPOS)/(side)/-1/1;
+  !!en;
+
+  !!if&(numEquBallista)>=1/(artilleryLv)>=(SKILL_BASIC);
+    !!BU:S(MON_BALLISTA)/1/(sndBallistaPOS)/(side)/-1/1;
+  !!en;
+
+  !!if&(numEquBallista)>=1/(artilleryLv)>=(SKILL_ADVANCED);
+    !!BU:S(MON_BALLISTA)/1/(trdBallistaPOS)/(side)/-1/1;
+  !!en;
+
+  !!if&(numEquBallista)>=1/(artilleryLv)>=(SKILL_EXPERT);
+    !!BU:S(MON_BALLISTA)/1/(fthBallistaPOS)/(side)/-1/1;
+  !!en;
+!!en;
+
+**炮术对弩车的数值加成。
+!?FU(OnSetupBattlefield);
+
+!!re (stackId:y)/(BATTLE_STACK_FIRST)/(BATTLE_STACK_LAST);
+  !!BM(stackId):T?(monType:y) N?(monNum:y);
+  !!BM(stackId):I?(side:y);
+  !!HEi^battle_hero_%(side)^:S(SKILL_ARTILLERY)/?(artilleryLv:y) E?(heroExp:y)/?(heroLv:y);[炮术等级]
+  !!HEi^battle_hero_%(side)^:S(SKILL_ARCHERY)/?(archeryLv:y) S(SKILL_LOGISTICS)/?(logisticsLV:y);[箭术等级][后勤等级]
+  !!HEi^battle_hero_%(side)^:S(SKILL_BALLISTICS)/?(ballisticsLv:y) S(SKILL_WISDOM)/?(wisdomLV:y);[弹道等级][智慧等级]
+  !!HEi^battle_hero_%(side)^:A2/(ART_BALLISTA)/?(numAllBallista:y)/?(numEquBallista:y);[携带弩车数量]
+
+**炮术加成
+  !!if&(monNum)>=1/(monType)=(MON_BALLISTA)/(artilleryLv)=(SKILL_BASIC);
+    !!BM(stackId):F?(f:y);
+    !!BM(stackId):F197701;[双格1/射击4/攻城武器64/免疫精神魔法1024/无法反击65536/无士气131072]
+    !!VR(minDamBonus:y):S(heroLv):2+4;
+    !!VR(maxDamBonus:y):S(heroLv)*10:16+7;
+    !!BM(stackId):Ad3;[攻击力]
+    !!BM(stackId):Dd2;[防御力]
+    !!BM(stackId):U1/d(minDamBonus);[最小伤害]
+    !!BM(stackId):U2/d(maxDamBonus);[最大伤害]
+    !!BM(stackId):U3/d3;[弹药数量]
+    !!BM(stackId):Hd50;[生命值]
+    !!BM(stackId):Sd2;[战场速度]
+    !!BM(stackId):S?(speed:y);
+    !!if&(speed)>10;
+      !!BM(stackId):S10;
+    !!en;
+
+  !!el&(monNum)>=1/(monType)=(MON_BALLISTA)/(artilleryLv)=(SKILL_ADVANCED);
+    !!BM(stackId):F201797;[比初级增加近战不减4096]
+    !!VR(minDamBonus:y):S(heroLv):2+5;
+    !!VR(maxDamBonus:y):S(heroLv)+8;
+    !!BM(stackId):Ad5;[攻击力]
+    !!BM(stackId):Dd3;[防御力]
+    !!BM(stackId):U1/d(minDamBonus);[最小伤害]
+    !!BM(stackId):U2/d(maxDamBonus);[最大伤害]
+    !!BM(stackId):U3/d3;[弹药数量]
+    !!BM(stackId):Hd50;[生命值]
+    !!BM(stackId):Sd4;[战场速度]
+    !!BM(stackId):S?(speed:y);
+    !!if&(speed)>10;
+      !!BM(stackId):S10;
+    !!en;
+
+  !!el&(monNum)>=1/(monType)=(MON_BALLISTA)/(artilleryLv)=(SKILL_EXPERT);
+    !!BM(stackId):F201829;[比中级增加攻击城墙32]
+    !!VR(minDamBonus:y):S(heroLv)*10:15+5;
+    !!VR(maxDamBonus:y):S(heroLv)*10:8+8;
+    !!BM(stackId):Ad7;[攻击力]
+    !!BM(stackId):Dd4;【防御力]
+    !!BM(stackId):U1/d(minDamBonus);[最小伤害]
+    !!BM(stackId):U2/d(maxDamBonus);[最大伤害]
+    !!BM(stackId):U3/d5;[弹药]
+    !!BM(stackId):Hd50;[生命值]
+    !!BM(stackId):Sd6;[战场速度]
+    !!BM(stackId):S?(speed:y);
+    !!if&(speed)>10;
+      !!BM(stackId):S10;
+    !!en;
+  !!en;
+
+**箭术加成
+  !!if&(monNum)>=1/(monType)=(MON_BALLISTA)/(archeryLv)=(SKILL_BASIC);
+    !!VR(aTkBonus:y):S(heroLv):5+1;
+    !!VR(defBonus:y):S(heroLv):4+1;
+    !!BM(stackId):Ad(aTkBonus);[攻击力]
+    !!BM(stackId):Dd-(defBonus);[防御力]
+    !!BM(stackId):D?(defend:y);
+    !!if&(defend)<0;
+      !!BM(stackId):D0;
+    !!en;
+    !!BM(stackId):U3/d2;[弹药数量]
+    !!BM(stackId):Sd1;[战场速度]
+    !!BM(stackId):S?(speed:y);
+    !!if&(speed)>10;
+      !!BM(stackId):S10;
+    !!en;
+
+  !!el&(monNum)>=1/(monType)=(MON_BALLISTA)/(archeryLv)=(SKILL_ADVANCED);
+    !!VR(aTkBonus:y):S(heroLv):5+1;
+    !!VR(defBonus:y):S(heroLv):4+1;
+    !!BM(stackId):Ad(aTkBonus);[攻击力]
+    !!BM(stackId):Dd-(defBonus);[防御力]
+    !!BM(stackId):D?(defend:y);
+    !!if&(defend)<0;
+     !!BM(stackId):D0;
+    !!en;
+    !!BM(stackId):U3/d3;[弹药数量]
+    !!BM(stackId):Sd1;[战场速度]
+    !!BM(stackId):S?(speed:y);
+    !!if&(speed)>10;
+      !!BM(stackId):S10;
+    !!en;
+
+  !!el&(monNum)>=1/(monType)=(MON_BALLISTA)/(archeryLv)=(SKILL_EXPERT);
+    !!BM(stackId):F?(flag:y);
+    !!VR(flag):|2048;
+    !!BM(stackId):F(flag);[增加无视障碍2048]
+    !!VR(aTkBonus:y):S(heroLv):4+1;
+    !!VR(defBonus:y):S(heroLv):3+1;
+    !!BM(stackId):Ad(aTkBonus);[攻击力]
+    !!BM(stackId):Dd-(defBonus);[防御力]
+    !!BM(stackId):D?(defend:y);
+    !!if&(defend)<0;
+      !!BM(stackId):D0;
+    !!en;
+    !!BM(stackId):U3/d4;[弹药]
+    !!BM(stackId):Sd2;[战场速度]
+    !!BM(stackId):S?(speed:y);
+    !!if&(speed)>10;
+      !!BM(stackId):S10;
+    !!en;
+  !!en;;
+
+!!en;
+
+
+**无炮术英雄，弩车在战场上不可行动。
+!?FU(OnBeforeBattleAction);
+!!BMi^battle_current_stack^:T?(type:y);
+
+!!if&(type)=(MON_BALLISTA);
+  !!BMi^battle_current_stack^:I?(side:y);
+  !!HEi^battle_hero_%(side)^:S(SKILL_ARTILLERY)/?(artilleryLv:y);
+  !!FU&(artilleryLv)>(SKILL_NOT_LEARNED):E;           [exit if the hero has Artillery skill]
+
+  !!BG:A12;
+!!en;
+
