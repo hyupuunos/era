@@ -1,0 +1,120 @@
+ZVSE2
+
+** trigger for Scholar学术
+
+
+** 只有一个玩家则停止获得学术经验
+!?FU(OnEveryDay)&i^timerDay^>1; 
+; Check if there is only one player in the game. Skip giving exp if it does
+!!VR(counter:y):S0;
+
+!!re i/(PLAYER_FIRST)/(PLAYER_LAST);
+  !!OW:Ii/d/?(isDead:y);
+  !!VR(counter)&(isDead)<>(TRUE):+1;
+
+  !!br&(counter)>=2;
+!!en;
+
+!!FU&i>(PLAYER_LAST):E;
+
+**学术每天获取经验
+;Get the max exp of the game
+
+!!UN:J1/?(maxLevel:y)/d;                [Note: Level limit is 0 by default, if there is no limit]
+!!FU(WOG_GetExpRequirementOfLevel)&(maxLevel)>0:P(maxLevel)/?(maxExp:y);
+
+; Check all the heroes owned by the player
+!!re i/(HERO_FIRST)/(HERO_LAST_WOG);
+  !!HEi:O?(owner:y);
+
+  !!if&(owner)=i^timerOwner^;
+    !!HEi:S(SKILL_SCHOLAR)/?(scholarLv:y) E?(heroExp:y)/?(heroLv:y)/1;
+    !!co&(maxLevel)>0/(heroLv)>=(maxLevel);[active only when the hero has not yet reach the level limit of the scenario.]
+
+    !!if&(scholarLv:y)>0;
+      !!VR(heroLvExraExp:y):S(heroLv)*6;
+      !!VR(bonusExp:y):S(scholarLv)*60+(heroLvExraExp)+20;
+      !!VR(heroExp):+(bonusExp);
+
+      ; Fix exp if there is a level limit in the scenario
+      !!VR(heroExp)&(maxLevel)>0:F0/(maxExp);
+
+      !!HEi:E(heroExp);
+    !!en;
+  !!en;
+!!en;
+
+; Get the total exp required for reaching a hero level
+!?FU(WOG_GetExpRequirementOfLevel);     [by daemon_n]
+!#VA(lvl:x) (exp:x);
+
+!!VR(exp):S0;
+!!FU&(lvl)<1:E;
+!!VR(saveV1:y):Sv1;
+!!SN:E5088784/(CALLCONV_FASTCALL)/(lvl:x);
+!!VR(exp):Sv1;
+!!VRv1:S(saveV1);
+
+**学术每周领悟魔法
+
+!?FU(OnEveryDay)&i^timerWeekday^=1/i^timerDay^>1; [weekly - continue if estates or scholar enabled]
+!!DO(rol_203_211_ManageWeeklyEvents)/(HERO_FIRST)/(HERO_LAST_WOG)/1:P; [iterate through all heroes]
+** end of timer routines
+
+!?FU(rol_203_211_ManageWeeklyEvents);
+!!HEx16:O?(owner:y);                           [get owner of iterated hero]
+
+!!if&(owner)=i^timerOwner^;
+  !!HEx16:S(SKILL_ESTATES)/?(skillLevel:y);           [get hero's estates level]
+  !!FU(rol_203_SetUpEstatesWeeklyBonus)&(skillLevel)>(SKILL_NOT_LEARNED):Px16/(skillLevel);  [if hero in use and it's that hero's owner's turn, continue in function (estates) - if enabled]
+  !!HEx16:S(SKILL_SCHOLAR)/?(skillLevel);             [get hero's scholar skill level]
+  !!FU(rol_211_TeachScholarSpell)&(skillLevel)>(SKILL_NOT_LEARNED):Px16/(skillLevel);       [if hero in use and it's that hero's owner's turn, continue in function (scholar) - if enabled]
+!!en;
+
+!?FU(rol_211_TeachScholarSpell);
+!#VA(hero:x) (scholarLv:x);
+
+!!HE(hero):B0/?z700;                           [get hero's name]
+!!HE(hero):S7/?y2;                             [get hero's wisdom skill level]
+!!VRy3&(scholarLv)=1:S57;                      [set basic scholar picture]
+!!VRy3&(scholarLv)=2:S58;                      [set advanced scholar picture]
+!!VRy3&(scholarLv)=3:S59;                      [set expert scholar picture]
+!!HE(hero):A2/0/?y7/?y8;                       [see if hero has a spell book]
+!!VRy6:R0/0/99;                                [random roll for chance to learn spell]
+!!VRy6&(scholarLv)=2:+0;                      [advanced bonus]
+!!VRy6&(scholarLv)=3:+0;                      [expert bonus]
+!!VRv7027:S0;                                  [loop counter]
+
+
+** Algor: begin
+!!if&y8>0/y6>59;
+  !!VRv1:S-1;
+  !!DO7015/0/69/1:P(hero)/y2/-1/(scholarLv);      [count number of avaliable spells in v1]
+
+  !!if&v1>-1;
+    !!VRv1:-1;
+    !!VRy10:S0 Rv1;                           [y10 - random avaliable spell]
+    !!VRv1:S-1;
+    !!DO(rol_epiphanyspell)/0/69/1:P(hero)/y2/y10/(scholarLv);         [learn y10 avaliable spell]
+  !!en;
+!!en;
+
+!?FU(rol_epiphanyspell);                      [x1 - hero, x2 - wisdom, x3 - learn spell(>=0)/count spells(=-1), x4 - scholar]
+!!HEx1:Mx16/?y1;                              [y1=1 for known spell]
+!!UN:J0/x16/?y2;                              [y2=1 for banned spell]
+!!SSx16:L?y3;                                 [y3 - spell level]
+!!VRy6:Sy3 -5;                                [y6 - required wisdom level]
+!!VRy7:Sy3 -1;                                [y7 - required sholar level]
+
+!!if&y1=0/y2=0/y6<=x2/y7<=x4;                 
+  !!VRv1:+1;                                  [v1 - spell count]
+
+  !!if&v1=x3;
+    !!HEx1:Mx16/1 O?y4;                       [learn slell, y4 - owner]
+    !!OW:Iy4/?y5;                             [y5=0 for human player]
+    !!IF&y5=0:Q2/9/x16/1/z148016;             [message for human player]
+    !!VRx16:S100;                             [exit cycle]
+  !!en;
+!!en;
+** Algor: end
+
