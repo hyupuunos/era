@@ -1,0 +1,104 @@
+ZVSE2
+
+** trigger for Navigation--->Life;
+
+!?FU(OnBeforeBattlefieldVisible);
+!!re (side:y)/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
+  !!HEi^battle_hero_%(side)^:S(SKILL_NAVIGATION)/?(navigationLv:y);
+  !!if&i^battle_hero_%(side)^>(NO_HERO)/(navigationLv)>(SKILL_NOT_LEARNED);
+    !!if&i^battle_hero_%(side)^>(NO_HERO)/(navigationLv)=(SKILL_BASIC);
+      !!VR(lifeCoef:y):S12;
+      !!VR(defCoef:y):S10;
+    !!el&i^battle_hero_%(side)^>(NO_HERO)/(navigationLv)=(SKILL_ADVANCED);
+      !!VR(lifeCoef:y):S18;
+      !!VR(defCoef:y):S10;
+    !!el&i^battle_hero_%(side)^>(NO_HERO)/(navigationLv)=(SKILL_EXPERT);
+      !!VR(lifeCoef:y):S25;
+      !!VR(defCoef:y):S10;
+    !!en;
+    ;设置生命防护状态图标及描述
+    !!SN:H^spell^/(SPELL_SUMMON_BOAT)/(SPELL_TEXT_NAME)/^Life protection^;
+    !!SN:H^spell^/(SPELL_SUMMON_BOAT)/(SPELL_TEXT_DESCR)/^Life protection, Reduce damage by 15%^;
+    !!SN:R^SpellInt.def:0_1.png^/^Data\defs\customBuffs\LifeProtection.png^;
+
+
+    !!VR(firstStack:y):S(side)*21+0;
+    !!VR(lastStack:y):S(side)*21+20;
+    !!re (stackId:y)/(firstStack)/(lastStack);
+      !!BM(stackId):F?(isLife:y) T?(monType:y) B?(monInitNum:y) N?(curNum:y) H?(stackHp:y) D?(stackDef:y);
+      !!if&(monType)>(NO_MON)/(monInitNum)>0/(curNum)>0;
+        !!VR(isLife):&16;        [生命标志]
+        !!BM(stackId):F?(isMirror:y);
+        !!VR(isMirror):&8388608; [镜像标志]
+        
+        !!if&(isLife)/(isMirror)=(FALSE);
+          !!VR(exraLife:y):S(stackHp)*(lifeCoef):100;
+          !!BM(stackId):Hd(exraLife);
+          !!VR(reduceDef:y):S(stackDef)*(defCoef):100+2 F0/(stackDef);
+          !!BM(stackId):Dd-(reduceDef);
+          !!BM(stackId):Fd~(MON_FLAG_MIND_IMMUNITY); [去除精神免疫标志]
+          !!BM(stackId):M(SPELL_SUMMON_BOAT)/999/1;  [增益状态]
+        !!en;
+      !!en; 
+    !!en;
+
+  !!en;
+!!en;  
+
+!?FU(OnBattleActionEnd);
+!!re (side:y)/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
+  !!HEi^battle_hero_%(side)^:S(SKILL_NAVIGATION)/?(navigationLv:y);
+  !!if&i^battle_hero_%(side)^>(NO_HERO)/(navigationLv)>(SKILL_NOT_LEARNED);
+    !!VR(firstStack:y):S(side)*21+0;
+    !!VR(lastStack:y):S(side)*21+20;
+    !!re (stackId:y)/(firstStack)/(lastStack);
+      !!BM(stackId):F?(isLife:y) T?(monType:y) B?(monInitNum:y) N?(curNum:y) H?(stackHp:y) D?(stackDef:y) G(SPELL_SUMMON_BOAT)/?(sumBoatTurn:y)/d;
+      !!if&(monType)>(NO_MON)/(monInitNum)>0/(curNum)>0;
+        !!VR(isLife):&16;        [生命标志]
+        !!BM(stackId):F?(isMirror:y);
+        !!VR(isMirror):&8388608; [镜像标志]
+        !!VR(stackRemRatio:y):S(curNum)*100:(monInitNum);
+        
+        !!if&(isLife)/(isMirror)=(FALSE)/(stackRemRatio)>=80;
+          !!BM(stackId):M(SPELL_SUMMON_BOAT)/999/1;  [设置增益状态]
+        !!el&(isLife)/(isMirror)=(FALSE)/(stackRemRatio)<80;
+          !!FU(rol_RemoveSpellFromStack)&(sumBoatTurn)>0:P(stackId)/(SPELL_SUMMON_BOAT); [移除增益]
+          !!IF:M^RemoveSpell, sumBoatTurn=%(sumBoatTurn)^;
+        !!en;
+      !!en;
+    !!en;
+  !!en;
+!!en;
+
+
+
+**堆栈伤害结算
+!?FU(OnStackToStackDamage);
+!#VA(atkStack:x) (defStack:x) (finalDmgConst:x) (finalDmg:x) (basicDmg:x) (dmgBonus:x) (isDistant:x) (distanceArg:x) (isTheoretical:x);
+
+
+!!BM(defStack):I?(side:y) G(SPELL_SUMMON_BOAT)/?(sumBoatTurn:y)/d;
+!!HEi^battle_hero_%(side)^:S(SKILL_NAVIGATION)/?(navigationLv:y);
+
+!!if&i^battle_hero_%(side)^>(NO_HERO)/(navigationLv)>=(SKILL_BASIC);
+  !!BM(defStack):B?(defStackInitNum:y) N?(defStackCurNum:y);
+  !!VR(defStackRemRatio:y):S(defStackCurNum)*100:(defStackInitNum);[计算防御堆栈剩余数量占比]
+
+  !!FU&(isTheoretical):E;
+
+  !!if&(defStackRemRatio)>=80/(sumBoatTurn)=1; 
+    !!VR(dmgReduction:y):S15;
+    !!VR(reducedDmg:y):S(finalDmgConst)*(dmgReduction) :100;
+    
+    !!VR(newFinalDmg:y):S(finalDmg)-(reducedDmg);
+    !!VR(finalDmg)&(finalDmg)>(newFinalDmg):S(newFinalDmg);
+  !!en;
+!!en;
+
+
+
+!?FU(rol_RemoveSpellFromStack); [移除魔法函数]
+!#VA(stack:x) (spell:x);
+
+!!BM(stack):Z?(stackStruct:y);
+!!SN:E4473392/2/(stackStruct)/(spell);
