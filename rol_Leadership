@@ -1,0 +1,96 @@
+ZVSE2
+
+** trigger for Leadership
+
+
+**根据堆栈士气值及领导術等级,确定额外行动的几率
+!?FU(OnBattleRound);
+!!re (side:y)/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
+  !!HEi^battle_hero_%(side)^:S(SKILL_LEADERSHIP)/?(leadershipLv:y);
+  !!if&(leadershipLv)>(SKILL_NOT_LEARNED);
+    !!VR(battleStackFirst:y):S(side)*21+0;
+    !!VR(battleStackLast:y):S(side)*21+20;
+    !!re (stackId:y)/(battleStackFirst)/(battleStackLast);
+      !!BM(stackId):T?(monType:y) N?(monNum:y);
+      !!BM(stackId):G212/?(stackMorale:y)/d;
+      !!VR(randomNum:y):R0/0/99;
+      !!VRi^rol_burstMorale_%(stackId)^:S-1;[开关初始化]
+
+      !!VR(leadershipStandard:y):S1;
+      ; Check if the defending stack is processed with spell that prevent moving
+      !!BM(stackId):G(SPELL_BLIND)/?(blindTurns:y)/d G70/?(stoneTurns:y)/d G74/?(paralyzeTurns:y)/d;
+      !!BM(stackId):G59/?(berserkTurns:y)/d G60/?(hypnotizeTurns:y)/d G82/?(fearTurns:y)/d;
+      ; 检查是否免疫精神魔法
+      !!BM(stackId):F?(initMindImmunityFlag:y);
+      !!VR(initMindImmunityFlag):&1024;
+
+      !!if|(blindTurns)=1/(stoneTurns)=1/(paralyzeTurns)=1/(initMindImmunityFlag)=1024;
+        !!VR(leadershipStandard):S-1; [堆栈不符合条件]
+      !!en;
+
+
+      !!if&(leadershipLv)=(SKILL_BASIC)/(monType)>(NO_MON)/(monNum)>0/(stackMorale)>0;[堆栈士气>0才起效]
+        !!VR(burstMoraleChance:y):S(stackMorale)+6;
+      !!el&(leadershipLv)=(SKILL_ADVANCED)/(monType)>(NO_MON)/(monNum)>0/(stackMorale)>0;
+        !!VR(burstMoraleChance:y):S(stackMorale)+10;
+      !!el&(leadershipLv)=(SKILL_EXPERT)/(monType)>(NO_MON)/(monNum)>0/(stackMorale)>0;
+        !!VR(burstMoraleChance:y):S(stackMorale)+14;
+      !!en;
+
+      !!if&(randomNum)<=(burstMoraleChance)/i^battle_hero_%(side)^>(NO_HERO)/(leadershipStandard)=1;
+        !!VRi^rol_burstMorale_%(stackId)^:S(stackId); [记录获得额外行动的堆栈号]
+        ; 士气移除丧心病狂/蛊惑人心/恐惧
+        !!if|(berserkTurns)=1/(hypnotizeTurns)=1/(fearTurns)=1; 
+          !!FU(rol_RemoveSpellFromStack):P(stackId)/59;
+          !!FU(rol_RemoveSpellFromStack):P(stackId)/60;
+          !!FU(rol_RemoveSpellFromStack):P(stackId)/82;
+          !!BM(stackId):V20;  [调用欢欣鼓舞动画]
+        !!en;
+      !!en;
+    !!en;
+  !!en;  
+!!en;
+
+**记录的堆栈行动后取消"已行动"标志,并降低速度.
+!?FU(OnBattleActionEnd);
+!!BG:N?(stackId:y);
+!!BM(stackId):I?(side:y);
+!!FU&i^battle_hero_%(side)^=(NO_HERO):E;
+!!HEi^battle_hero_%(side)^:S(SKILL_LEADERSHIP)/?(leadershipLv:y);
+!!if&(leadershipLv)>(SKILL_NOT_LEARNED);
+  !!BM(stackId):F?(actionFlagInspect:y);
+  !!VR(actionFlagInspect):&67108864;
+
+  !!if&i^rol_burstMorale_%(stackId)^>-1/(actionFlagInspect)=67108864;
+    !!BM(stackId):S?(speed:y);
+    !!VRi^rol_%(stackId)_initspeed^:S(speed);
+    !!VR(speed)::2+1 F2/10;
+    !!BM(stackId):S(speed);
+    !!BM(stackId):V20;  [调用欢欣鼓舞动画]
+    !!BM(stackId):Fd~67108864;
+    !!VRi^rol_burstMorale_%(stackId)^:S-2;[已完成额外行动的标志开关=-2]
+    !!VRi^rol_reducespeed_%(stackId)^:S1; [减速标志开关]
+  !!en;
+!!en;
+
+**堆栈额外行动后,恢复原始速度.
+!?FU(OnBattleActionEnd);
+!!BG:N?(stackId:y);
+!!BM(stackId):I?(side:y);
+!!FU&i^battle_hero_%(side)^=(NO_HERO):E;
+!!BM(stackId):F?(actionFlagInspect:y);
+!!VR(actionFlagInspect):&67108864;
+
+!!if&i^rol_burstMorale_%(stackId)^=-2/i^rol_reducespeed_%(stackId)^=1/(actionFlagInspect)=67108864;
+  !!BM(stackId):Si^rol_%(stackId)_initspeed^;
+  !!VR(initSpeed:y):Si^rol_%(stackId)_initspeed^;
+  !!IF:M^initSpeed=%(initSpeed)^;
+  !!VRi^rol_reducespeed_%(stackId)^:S-1;
+!!en;
+
+
+!?FU(rol_RemoveSpellFromStack);
+!#VA(stack:x) (spell:x);
+
+!!BM(stack):Z?(stackStruct:y);
+!!SN:E4473392/2/(stackStruct)/(spell);
