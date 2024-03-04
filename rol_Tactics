@@ -1,0 +1,114 @@
+
+ZVSE2
+
+** trigger for Tactics;
+
+
+
+
+**初始化急救帐篷属性
+!?FU(OnAfterErmInstructions);
+!!VR(flagTent:y):&1;
+!!MA&(flagTent)=1:X(MON_FIRST_AID_TENT)/d-1;
+!!MA:X(MON_FIRST_AID_TENT)/?(flagTent:y); [双格1/射击4/攻城武器64/免疫精神魔法1024/无法反击65536/无士气131072]
+*!IF:M^MON_FIRST_AID_TENT flag=%(flagTent)^;
+!!MA:A(MON_FIRST_AID_TENT)/2;
+!!MA:D(MON_FIRST_AID_TENT)/4;
+!!MA:P(MON_FIRST_AID_TENT)/100;
+
+**以下废止
+**战斗开始时放置帐篷
+*?FU(OnSetupBattlefield);
+
+*!re (side:y)/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
+  *!HEi^battle_hero_%(side)^:S(SKILL_TACTICS)/?(tacicsLv:y);
+  *!HEi^battle_hero_%(side)^:A2/(ART_FIRST_AID_TENT)/?(numAllTent:y)/?(numEquTent:y);
+  *!VR(distance:y):S(side)*16;
+  *!VR(firstAidTentPOS:y):S153+(distance);
+
+  *!if&(numEquTent)>=1/(tacicsLv)>=(SKILL_BASIC);
+    *!BU:S(MON_FIRST_AID_TENT)/1/(firstAidTentPOS)/(side)/-1/1;
+  *!en;
+*!en;
+
+**战斗中如果帐篷被摧毁,删除英雄身上的帐篷
+*?FU(OnAfterBattleAction);
+*!BU:C?(endBattle:y);
+*!if&(endBattle)=1;
+  *!re (side:y)/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
+    *!HEi^battle_hero_%(side)^:S(SKILL_TACTICS)/?(tacicsLv:y);
+    *!HEi^battle_hero_%(side)^:A2/(ART_FIRST_AID_TENT)/?(numAllTent:y)/?(numEquTent:y);
+    *!VR(distance:y):S(side)*16;
+    *!VR(firstAidTentPOS:y):S170+(distance);
+
+    *!BU:E(firstAidTentPOS)/?(stackId:y);
+    *!BM(stackId):T?(monType:y);
+    *!if&(monType)<>(MON_FIRST_AID_TENT);
+      *!HEi^battle_hero_%(side))^::A3/(ART_FIRST_AID_TENT)/1/1;
+    *!en;
+  *!en;
+*!en;
+**以上废止
+
+**战前记录双方英雄各槽位生物初始数量(具有生命的)
+!?FU(OnBeforeBattle);
+!!re (side:y)/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
+  !!HEi^battle_hero_%(side)^:S(SKILL_TACTICS)/?(tacicsLv:y);
+  !!HEi^battle_hero_%(side)^:A2/(ART_FIRST_AID_TENT)/?(numAllTent:y)/?(numEquTent:y);
+
+  !!if&(numEquTent)>=1/(tacicsLv)>=(SKILL_BASIC);
+    !!re (heroSlot:y)/(ARMY_SLOT_FIRST)/(ARMY_SLOT_LAST);
+      !!VRi^rol_monType_%(side)_%(heroSlot)^:S(NO_MON);
+      !!HEi^battle_hero_%(side)^:C0/(heroSlot)/?(monType:y)/?(monNum:y);
+
+      !!if&(monType)<>(NO_MON);
+        !!MA:X(monType)/?(lifeFlag:y);
+        !!VR(lifeFlag):&16;
+        !!if&(lifeFlag)=16;
+          !!VRi^rol_monType_%(side)_%(heroSlot)^:S(monType);
+          !!VRi^rol_monNum_%(side)_%(heroSlot)^:S(monNum);
+          !!VR(monTypeshow:y):Si^rol_monType_%(side)_%(heroSlot)^;
+          !!VR(monNumshow:y):Si^rol_monNum_%(side)_%(heroSlot)^;
+        !!en;
+      !!en;
+    !!en;
+  !!en;
+!!en;
+
+**战后复活阵亡的生命系生物
+!?FU(OnAfterBattle);
+
+!!re (side:y)/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
+  !!HEi^battle_hero_%(side)^&i^battle_hero_%(side)^>(NO_HERO):S(SKILL_TACTICS)/?(tacicsLv:y);
+  !!HEi^battle_hero_%(side)^&i^battle_hero_%(side)^>(NO_HERO):A2/(ART_FIRST_AID_TENT)/?(numAllTent:y)/?(numEquTent:y);
+
+  !!if&i^battle_hero_%(side)^>(NO_HERO)/(tacicsLv)=(SKILL_BASIC);
+    !!VR(cureCoef:y):S100;
+  !!el&i^battle_hero_%(side)^>(NO_HERO)/(tacicsLv)=(SKILL_ADVANCED);
+    !!VR(cureCoef:y):S58;
+  !!el&i^battle_hero_%(side)^>(NO_HERO)/(tacicsLv)=(SKILL_EXPERT);
+    !!VR(cureCoef:y):S40;
+  !!en;
+
+  !!if&i^battle_hero_%(side)^>(NO_HERO)/(tacicsLv)>=(SKILL_BASIC)/(numEquTent)=(NO_ART);
+    !!VR(cureCoef):*2;
+  !!en;
+
+
+  !!if&i^battle_hero_%(side)^>(NO_HERO)/(tacicsLv)>=(SKILL_BASIC);
+    !!re (heroSlot:y)/(ARMY_SLOT_FIRST)/(ARMY_SLOT_LAST);
+      
+      !!if&i^rol_monType_%(side)_%(heroSlot)^>(NO_MON);
+        !!HEi^battle_hero_%(side)^:C0/(heroSlot)/?(postMonType:y)/?(postMonNum:y);
+        !!VR(cureNum:y):Si^rol_monNum_%(side)_%(heroSlot)^-(postMonNum)*10:(cureCoef);
+        !!if&(cureNum)>=1;
+          !!HEi^battle_hero_%(side)^:C0/(heroSlot)/i^rol_monType_%(side)_%(heroSlot)^/d(cureNum);
+          !!HEi^battle_hero_%(side)^:B0/?(heroName:z);
+          !!VR(cureMonType:y):Si^rol_monType_%(side)_%(heroSlot)^;
+          !!SN:H^monname^/(cureMonType)/0?(cureMonName:z);
+          *!IF&1000:M^%(heroName)'s Medical Team Saved  %(cureNum)  %(cureMonName) On The Battlefield^; [弹窗显示]
+        !!en;
+      !!en;
+    !!en;
+  !!en;
+!!en;
